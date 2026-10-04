@@ -3,3 +3,4 @@ We are building Embedded Market to help people who build systems with microelect
 
 # Contributors
 @AndrewDile : Andrew Dile
+@Dasgupta426 : Aakriti Dasgupta
