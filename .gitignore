@@ -1,3 +1,15 @@
 # CMake build trees
 build/
 engine/build/
+
+# Node
+node_modules/
+dist/
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Local configuration
+.vscode/

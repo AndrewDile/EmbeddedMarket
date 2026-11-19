@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
+from compatibility.handler import compatibility_blueprint
 from pricing.handler import pricing_blueprint
 
 
@@ -18,6 +19,7 @@ def create_app():
         },
     )
     app.register_blueprint(pricing_blueprint)
+    app.register_blueprint(compatibility_blueprint)
 
     return app
 
