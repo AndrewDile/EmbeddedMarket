@@ -61,14 +61,13 @@ std::vector<Finding> PinBudgetRule::evaluate(const EvaluationContext& context) c
 
         const std::string need = host.id() + ": connections need " + std::to_string(used) + " pins (" +
                                  (breakdown.empty() ? std::string("none") : join(breakdown)) + ")";
-        if (used > *available) {
-            findings.push_back(gate.verdict(Severity::Conflict, involved,
-                                            need + " but only " + std::to_string(*available) +
-                                                " GPIO are available"));
-        } else {
-            findings.push_back(gate.verdict(Severity::Pass, involved,
-                                            need + ", within " + std::to_string(*available) + " available GPIO"));
-        }
+        Finding finding = used > *available
+                              ? gate.verdict(Severity::Conflict, involved,
+                                             need + " but only " + std::to_string(*available) + " GPIO are available")
+                              : gate.verdict(Severity::Pass, involved,
+                                             need + ", within " + std::to_string(*available) + " available GPIO");
+        finding.metrics = {{"pinsUsed", static_cast<double>(used)}, {"pinsAvailable", static_cast<double>(*available)}};
+        findings.push_back(std::move(finding));
     }
     return findings;
 }

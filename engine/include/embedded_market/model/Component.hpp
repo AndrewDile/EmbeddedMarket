@@ -32,6 +32,13 @@ struct ComponentSpecs {
     SpecValue<int> availableGpio;  // Pins this part can offer to its downstream parts.
     SpecValue<int> extraPins;      // Dedicated pins this part needs from its upstream host beyond the
                                    // interface signals (interrupt, reset, enable). Zero if none.
+
+    SpecValue<double> currentMa;  // Maximum current draw, in milliamps.
+
+    // Controller capabilities.
+    SpecValue<double> clockMhz;
+    SpecValue<double> flashKb;
+    SpecValue<double> ramKb;
 };
 
 class Component {

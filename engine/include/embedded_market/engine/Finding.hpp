@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iosfwd>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -22,6 +23,7 @@ struct Finding {
     std::string ruleId;
     std::vector<std::string> componentIds;  // Components this finding is about.
     std::string message;
+    std::map<std::string, double> metrics = {};  // Numbers behind the message, for display.
 
     bool involves(const std::string& componentId) const;
 };

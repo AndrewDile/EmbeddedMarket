@@ -5,6 +5,8 @@
 #include "embedded_market/rules/InterfaceRule.hpp"
 #include "embedded_market/rules/LogicLevelRule.hpp"
 #include "embedded_market/rules/PinBudgetRule.hpp"
+#include "embedded_market/rules/PowerBudgetRule.hpp"
+#include "embedded_market/rules/ProjectConstraintsRule.hpp"
 #include "embedded_market/rules/SpecSanityRule.hpp"
 #include "embedded_market/rules/SupplyVoltageRule.hpp"
 
@@ -17,6 +19,8 @@ RuleRegistry RuleRegistry::withDefaults() {
     registry.emplace<InterfaceRule>();
     registry.emplace<LogicLevelRule>();
     registry.emplace<PinBudgetRule>();
+    registry.emplace<PowerBudgetRule>();
+    registry.emplace<ProjectConstraintsRule>();
     return registry;
 }
 

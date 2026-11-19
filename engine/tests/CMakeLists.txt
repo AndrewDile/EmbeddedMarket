@@ -23,11 +23,14 @@ add_executable(em_engine_tests
     ReportTest.cpp
     EngineTest.cpp
     DeterminismTest.cpp
+    FieldNodeFlowTest.cpp
     SpecSanityRuleTest.cpp
     SupplyVoltageRuleTest.cpp
     InterfaceRuleTest.cpp
     LogicLevelRuleTest.cpp
     PinBudgetRuleTest.cpp
+    PowerBudgetRuleTest.cpp
+    ProjectConstraintsRuleTest.cpp
     UncertaintyTest.cpp
 )
 target_link_libraries(em_engine_tests PRIVATE em_engine GTest::gtest_main)

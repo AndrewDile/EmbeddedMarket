@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(EM_BUILD_TESTS "Build the engine unit tests (requires GoogleTest)" ON)
+option(EM_BUILD_SERVICE "Build the engine's HTTP service (downloads cpp-httplib and nlohmann/json)" OFF)
 
 add_library(em_engine STATIC
     src/model/Model.cpp
@@ -19,6 +20,8 @@ add_library(em_engine STATIC
     src/rules/InterfaceRule.cpp
     src/rules/LogicLevelRule.cpp
     src/rules/PinBudgetRule.cpp
+    src/rules/PowerBudgetRule.cpp
+    src/rules/ProjectConstraintsRule.cpp
 )
 target_include_directories(em_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -31,4 +34,8 @@ endif()
 if(EM_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if(EM_BUILD_SERVICE)
+    add_subdirectory(service)
 endif()

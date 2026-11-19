@@ -5,7 +5,8 @@
 
 namespace embedded_market {
 
-Project::Project(SpecValue<VoltageRange> supply) : supply_(std::move(supply)) {}
+Project::Project(SpecValue<VoltageRange> supply, ProjectConstraints constraints)
+    : supply_(std::move(supply)), constraints_(std::move(constraints)) {}
 
 void Project::addComponent(Component component) {
     if (indexById_.count(component.id())) {

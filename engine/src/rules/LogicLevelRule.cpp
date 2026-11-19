@@ -36,9 +36,11 @@ std::vector<Finding> LogicLevelRule::evaluate(const Connection& connection,
         const std::vector<std::string> involved{driver->id(), receiver->id()};
         bool conflict = false;
         if (*outputHigh > *inputMax + tolerance) {
-            findings.push_back(gate.verdict(Severity::Conflict, involved,
-                                            prefix + "above " + receiver->id() + "'s maximum input voltage of " +
-                                                formatVolts(*inputMax) + " (risk of damage)"));
+            Finding finding = gate.verdict(Severity::Conflict, involved,
+                                           prefix + "above " + receiver->id() + "'s maximum input voltage of " +
+                                               formatVolts(*inputMax) + " (risk of damage)");
+            finding.metrics = {{"outputHighV", *outputHigh}, {"inputMaxV", *inputMax}};
+            findings.push_back(std::move(finding));
             conflict = true;
         }
         if (*outputHigh < *inputHighMin - tolerance) {

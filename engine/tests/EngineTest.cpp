@@ -44,8 +44,9 @@ Project compatibleProject() {
 
 TEST(EngineTest, DefaultRegistryHasBuiltInRules) {
     const RuleRegistry registry = RuleRegistry::withDefaults();
-    EXPECT_EQ(registry.size(), 5u);
-    for (const char* id : {"spec-sanity", "supply-voltage", "interface", "logic-level", "pin-budget"}) {
+    EXPECT_EQ(registry.size(), 7u);
+    for (const char* id : {"spec-sanity", "supply-voltage", "interface", "logic-level", "pin-budget", "power-budget",
+                           "project-constraints"}) {
         EXPECT_TRUE(registry.contains(id)) << id;
     }
 }
