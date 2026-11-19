@@ -6,7 +6,9 @@ export function sampleResponse(bom) {
   const known = bom.ledCurrent !== null;
   const total = parts(bom).reduce((sum, row) => sum + (row[5] ?? 0), 0);
   const overBudget = total > 200;
-  return { conflict, known, total, overBudget, ready: !conflict && known && !overBudget };
+  const conflicts = Number(conflict) + Number(overBudget), warnings = known ? 0 : 2;
+  const checks = { total: 11, passed: 11 - conflicts - warnings, warnings, conflicts };
+  return { conflict, known, total, overBudget, ready: !conflict && known && !overBudget, checks };
 }
 
 export async function checkCompatibility(bom, endpoint = import.meta.env?.VITE_CHECK_URL) {
@@ -19,7 +21,7 @@ export async function checkCompatibility(bom, endpoint = import.meta.env?.VITE_C
   if (!response.ok) throw new Error('Check failed');
   const result = await response.json();
   const flags = ['conflict','known','overBudget','ready'];
-  if (!result || !Number.isFinite(result.total) || flags.some(key => typeof result[key] !== 'boolean')) {
+  if (!result || !result.checks || !Number.isFinite(result.total) || flags.some(key => typeof result[key] !== 'boolean')) {
     throw new Error('Incomplete check response');
   }
   return result;
